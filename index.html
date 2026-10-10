@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey! I have a question...</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.3);
+            max-width: 450px;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            color: #fb6f92;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .gif-container img {
+            max-width: 180px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .btn-group {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+        }
+        button {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        #yesBtn {
+            background-color: #fb6f92;
+            color: white;
+            box-shadow: 0 5px 15px rgba(251, 111, 146, 0.4);
+        }
+        #yesBtn:hover {
+            transform: scale(1.05);
+            background-color: #ff8fab;
+        }
+        #noBtn {
+            background-color: #e9ecef;
+            color: #495057;
+            position: absolute;
+            left: 55%;
+            white-space: nowrap;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .heart {
+            position: absolute;
+            color: #fb6f92;
+            animation: float Up 4s linear infinite;
+            font-size: 24px;
+            opacity: 0;
+            z-index: 1;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div class="gif-container">
+            <!-- Cute placeholder romantic illustration/GIF -->
+            <span style="font-size: 80px;">✨ Teddy ✨</span>
+        </div>
+        <h1 id="headline">Will you go out on a date with me?</h1>
+        <p id="subtext">I promise good food, terrible jokes, and the absolute best time. What do you say?</p>
+        
+        <div class="btn-group" id="btnGroup">
+            <button id="yesBtn" onclick="celebrate()">Yes!</button>
+            <button id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            
+            // Generate random positions away from the center/card bounds
+            const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth - 40)) + 20;
+            const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight - 40)) + 20;
+            
+            // Make button absolute positioned relative to the viewport
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            // Hide the No button entirely
+            document.getElementById('noBtn').classList.add('hidden');
+            
+            // Center the Yes button layout
+            document.getElementById('btnGroup').style.justifyContent = 'center';
+            
+            // Update Text
+            document.getElementById('headline').innerText = "YAY! It's a date! ❤️";
+            document.getElementById('subtext').innerText = "I can't wait! I'll message you the details in a bit.";
+            
+            // Update Visuals
+            document.querySelector('.gif-container').innerHTML = '<span style="font-size: 80px;">🥰🥳🎉</span>';
+            
+            // Rain Hearts
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
