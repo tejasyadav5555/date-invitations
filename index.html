@@ -1,163 +1,561 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hey! I have a question...</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            text-align: center;
-            padding: 20px;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.3);
-            max-width: 450px;
-            width: 100%;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 10;
-        }
-        h1 {
-            color: #fb6f92;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-        p {
-            color: #6c757d;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-        .gif-container img {
-            max-width: 180px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        .btn-group {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            height: 50px;
-        }
-        button {
-            padding: 12px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-        #yesBtn {
-            background-color: #fb6f92;
-            color: white;
-            box-shadow: 0 5px 15px rgba(251, 111, 146, 0.4);
-        }
-        #yesBtn:hover {
-            transform: scale(1.05);
-            background-color: #ff8fab;
-        }
-        #noBtn {
-            background-color: #e9ecef;
-            color: #495057;
-            position: absolute;
-            left: 55%;
-            white-space: nowrap;
-        }
-        .hidden {
-            display: none !important;
-        }
-        .heart {
-            position: absolute;
-            color: #fb6f92;
-            animation: float Up 4s linear infinite;
-            font-size: 24px;
-            opacity: 0;
-            z-index: 1;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff0f3">
+<title>Hey D 💗 A Date?</title>
 
-    <div class="card" id="mainCard">
-        <div class="gif-container">
-            <!-- Cute placeholder romantic illustration/GIF -->
-            <span style="font-size: 80px;">✨ Hey D ✨</span>
-        </div>
-        <h1 id="headline">Will you go out on a date with me?</h1>
-        <p id="subtext">I promise good food, terrible jokes, and the absolute best time. What do you say?</p>
-        
-        <div class="btn-group" id="btnGroup">
-            <button id="yesBtn" onclick="celebrate()">Yes!</button>
-            <button id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
-        </div>
+<style>
+:root {
+  --pink: #f45b83;
+  --dark: #34313a;
+  --muted: #6f6b75;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #fff7f7;
+  color: var(--dark);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+
+.page {
+  width: min(100%, 520px);
+  margin: auto;
+  padding: 12px 12px 28px;
+}
+
+.hero, .section {
+  border-radius: 25px;
+  padding: 24px 16px;
+  box-shadow: 0 8px 26px #c95a781c;
+  overflow: hidden;
+}
+
+.hero {
+  min-height: min(790px, calc(100svh - 24px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(ellipse, #fffdfb, #ffe8ed 75%, #ffdce5);
+}
+
+.heart-icon {
+  font-size: 38px;
+  color: var(--pink);
+}
+
+.eyebrow {
+  color: #df416b;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin: 8px 0;
+}
+
+h1 {
+  font-size: clamp(40px, 10vw, 54px);
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+h1 span { color: var(--pink); }
+
+h2 {
+  font-size: 24px;
+  line-height: 1.25;
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.lead, .intro {
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.lead {
+  max-width: 330px;
+  margin: 0 auto 18px;
+}
+
+.couple {
+  width: min(260px, 85%);
+  height: 155px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  min-height: 50px;
+  font-weight: 800;
+}
+
+.yes {
+  background: var(--pink);
+  color: white;
+  flex: 1;
+  box-shadow: 0 5px 15px #f45b8340;
+}
+
+.no {
+  background: #efedf0;
+  color: #57515b;
+  flex: 1;
+}
+
+.hint {
+  color: #9b8790;
+  font-size: 12px;
+  margin-top: 14px;
+}
+
+.section {
+  margin-top: 16px;
+  background: #fffdfb;
+}
+
+.intro {
+  font-size: 14px;
+  margin: 0 auto 18px;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.food {
+  border: 2px solid transparent;
+  border-radius: 17px;
+  overflow: hidden;
+  background: #fff1f4;
+  padding: 0;
+  text-align: left;
+  color: var(--dark);
+}
+
+.food.selected {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px #f45b8320;
+}
+
+.food img {
+  display: block;
+  width: 100%;
+  height: 125px;
+  object-fit: cover;
+  background: #f5dfe4;
+}
+
+.food-copy { padding: 10px; }
+
+.food-title {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.food-desc {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+
+.check { color: var(--pink); }
+
+.date-section {
+  text-align: center;
+  background: linear-gradient(145deg, #fff0f3, #fffaf8);
+}
+
+.date-form {
+  display: grid;
+  gap: 14px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 750;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+input[type="date"], input[type="text"] {
+  width: 100%;
+  min-height: 50px;
+  border: 1.5px solid #ffc5d3;
+  border-radius: 14px;
+  padding: 12px;
+  background: white;
+  color: var(--dark);
+}
+
+.send {
+  background: var(--pink);
+  color: white;
+  width: 100%;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.status {
+  display: none;
+  margin-top: 14px;
+  padding: 14px;
+  background: white;
+  border-radius: 14px;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+
+.status.show { display: block; }
+
+footer {
+  text-align: center;
+  color: #a17d89;
+  padding: 22px 8px;
+  font-size: 13px;
+}
+
+.floating-heart {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  animation: float 2.5s ease-out forwards;
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-70vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 430px) {
+  .food img { height: 145px; }
+}
+
+@media (max-height: 720px) {
+  .hero { min-height: auto; padding: 24px 18px; }
+  .couple { height: 110px; margin-bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <!-- STEP 1: THE INVITATION -->
+  <section class="hero" id="top">
+    <div class="heart-icon">♥</div>
+    <div class="eyebrow">A TINY QUESTION FOR YOU</div>
+
+    <h1>Hey D <span>♥</span></h1>
+    <h2>Will you go on a date with me?</h2>
+
+    <p class="lead">
+      I promise good food, terrible jokes, and a lovely time
+      with you. What do you say?
+    </p>
+
+    <img
+      class="couple"
+      alt="A sweet couple"
+      src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=85"
+    >
+
+    <div class="actions">
+      <button class="btn yes" id="yesBtn">Yes! 💗</button>
+      <button class="btn no" id="noBtn">No 🙈</button>
     </div>
 
-    <script>
-        function moveNoButton() {
-            const noBtn = document.getElementById('noBtn');
-            
-            // Generate random positions away from the center/card bounds
-            const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth - 40)) + 20;
-            const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight - 40)) + 20;
-            
-            // Make button absolute positioned relative to the viewport
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        }
+    <div class="hint">P.S. The “No” button is a little shy 😉</div>
+  </section>
 
-        function celebrate() {
-            // Hide the No button entirely
-            document.getElementById('noBtn').classList.add('hidden');
-            
-            // Center the Yes button layout
-            document.getElementById('btnGroup').style.justifyContent = 'center';
-            
-            // Update Text
-            document.getElementById('headline').innerText = "YAY! It's a date! ❤️";
-            document.getElementById('subtext').innerText = "I can't wait! I'll message you the details in a bit.";
-            
-            // Update Visuals
-            document.querySelector('.gif-container').innerHTML = '<span style="font-size: 80px;">🥰🥳🎉</span>';
-            
-            // Rain Hearts
-            setInterval(createHeart, 300);
-        }
+  <!-- STEP 2: FOOD CHOICES -->
+  <section class="section" id="food">
+    <h2>🍝 What should we eat?</h2>
+    <p class="intro">Pick your favourite food for our date!</p>
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
-        }
-    </script>
+    <div class="food-grid">
+
+      <button class="food" type="button" data-food="Italian">
+        <img
+          loading="lazy"
+          alt="Pizza"
+          src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=85"
+        >
+        <div class="food-copy">
+          <div class="food-title">🍕 Italian <span class="check"></span></div>
+          <div class="food-desc">Pizza, pasta & cosy vibes</div>
+        </div>
+      </button>
+
+      <button class="food" type="button" data-food="Chinese">
+        <img
+          loading="lazy"
+          alt="Noodles"
+          src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=85"
+        >
+        <div class="food-copy">
+          <div class="food-title">🥢 Chinese <span class="check"></span></div>
+          <div class="food-desc">Noodles, spice & chatting</div>
+        </div>
+      </button>
+
+      <button class="food" type="button" data-food="Cafe">
+        <img
+          loading="lazy"
+          alt="Coffee"
+          src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=700&q=85"
+        >
+        <div class="food-copy">
+          <div class="food-title">☕ Café vibes <span class="check"></span></div>
+          <div class="food-desc">Coffee, desserts & long talks</div>
+        </div>
+      </button>
+
+      <button class="food" type="button" data-food="Street food">
+        <img
+          loading="lazy"
+          alt="Indian snacks"
+          src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=85"
+        >
+        <div class="food-copy">
+          <div class="food-title">🌮 Street food <span class="check"></span></div>
+          <div class="food-desc">Little bites, big smiles</div>
+        </div>
+      </button>
+
+    </div>
+
+    <p class="note" id="foodHint" style="text-align:center">
+      Tap a card to choose your favourite 💗
+    </p>
+  </section>
+
+  <!-- STEP 3: CHOOSE THE DATE -->
+  <section class="section date-section" id="date">
+    <div style="font-size:32px">💌</div>
+    <h2>Now, your turn!</h2>
+
+    <p class="intro">
+      Which date works for you? Pick a day and let's plan
+      something lovely.
+    </p>
+
+    <form class="date-form" id="dateForm">
+      <div>
+        <label for="dateChoice">Your ideal date</label>
+        <input id="dateChoice" type="date" required>
+      </div>
+
+      <div>
+        <label for="timeChoice">What time suits you? (optional)</label>
+        <input id="timeChoice" type="text" placeholder="e.g. Saturday evening">
+      </div>
+
+      <div>
+        <label for="extra">Any place or idea in mind? (optional)</label>
+        <input id="extra" type="text" placeholder="e.g. a cute café with a view">
+      </div>
+
+      <p class="note">
+        Tap below to share your food choice and preferred date.
+      </p>
+
+      <button class="btn send" type="submit">Send my date 💌</button>
+    </form>
+
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <footer>Made with a little courage and lots of 💗</footer>
+</main>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const foodCards = [...document.querySelectorAll(".food")];
+const dateInput = document.getElementById("dateChoice");
+
+let selectedFood = "";
+
+const today = new Date();
+const localToday = new Date(
+  today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().slice(0, 10);
+
+dateInput.min = localToday;
+
+// Floating hearts
+function hearts() {
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("span");
+    heart.className = "floating-heart";
+    heart.textContent = ["💗", "💕", "♥", "✨"][
+      Math.floor(Math.random() * 4)
+    ];
+    heart.style.left = (Math.random() * 90 + 5) + "vw";
+    heart.style.bottom = "8px";
+    heart.style.fontSize = (18 + Math.random() * 18) + "px";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2600);
+  }
+}
+
+// Yes: move to the food choices
+yesBtn.addEventListener("click", () => {
+  document.getElementById("food").scrollIntoView({
+    behavior: "smooth"
+  });
+  hearts();
+});
+
+// A playful No button that stays usable on mobile
+function dodge() {
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const maxX = Math.max(8, window.innerWidth - noBtn.offsetWidth - 8);
+    const maxY = Math.max(8, window.innerHeight - noBtn.offsetHeight - 8);
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = Math.floor(Math.random() * maxX) + "px";
+    noBtn.style.top = Math.floor(Math.random() * maxY) + "px";
+  }
+}
+
+noBtn.addEventListener("mouseenter", dodge);
+noBtn.addEventListener("click", () => {
+  noBtn.textContent = "Maybe? 🥹";
+  document.querySelector(".lead").textContent =
+    "No pressure at all — only if you'd like to. 💗";
+});
+
+// Select one food card
+foodCards.forEach(card => {
+  card.setAttribute("aria-pressed", "false");
+
+  card.addEventListener("click", () => {
+    foodCards.forEach(item => {
+      item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
+      item.querySelector(".check").textContent = "";
+    });
+
+    card.classList.add("selected");
+    card.setAttribute("aria-pressed", "true");
+    card.querySelector(".check").textContent = "♥";
+
+    selectedFood = card.dataset.food;
+
+    document.getElementById("foodHint").textContent =
+      "Your pick: " + selectedFood + " 💗";
+
+    hearts();
+  });
+});
+
+// Prepare and share her chosen date
+document.getElementById("dateForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const date = dateInput.value;
+  const time = document.getElementById("timeChoice").value.trim();
+  const idea = document.getElementById("extra").value.trim();
+
+  const prettyDate = new Date(date + "T12:00:00").toLocaleDateString(
+    undefined,
+    {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+  );
+
+  const message =
+    `Hey! 💗 It's a date!\n` +
+    `Food choice: ${selectedFood || "Let's decide together"}\n` +
+    `Date: ${prettyDate}\n` +
+    `Time: ${time || "Flexible"}\n` +
+    `Idea: ${idea || "Surprise me!"}\n` +
+    `Can't wait! 🥰`;
+
+  const status = document.getElementById("status");
+  status.textContent = "Your date message is ready:\n\n" + message;
+  status.classList.add("show");
+
+  const copyBtn = document.createElement("button");
+  copyBtn.type = "button";
+  copyBtn.className = "btn send";
+  copyBtn.style.marginTop = "12px";
+  copyBtn.textContent = "Copy message";
+
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(message);
+      copyBtn.textContent = "Copied! 💗";
+    } catch {
+      window.prompt("Copy your date message:", message);
+    }
+  });
+
+  status.appendChild(document.createElement("br"));
+  status.appendChild(copyBtn);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Our date 💗",
+        text: message
+      });
+    } catch {
+      // Sharing cancelled; the copy button remains available.
+    }
+  }
+
+  hearts();
+});
+</script>
 </body>
 </html>
+
