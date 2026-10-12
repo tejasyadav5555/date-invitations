@@ -17,9 +17,7 @@
   --white: #ffffff;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -30,9 +28,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-button, input {
-  font: inherit;
-}
+button, input { font: inherit; }
 
 button {
   cursor: pointer;
@@ -96,9 +92,7 @@ button {
   animation: appear .22s ease;
 }
 
-.screen.active {
-  display: flex;
-}
+.screen.active { display: flex; }
 
 @keyframes appear {
   from { opacity: 0; transform: translateY(8px); }
@@ -140,9 +134,7 @@ h1 {
   margin: 0 0 14px;
 }
 
-h1 span {
-  color: var(--pink);
-}
+h1 span { color: var(--pink); }
 
 h2 {
   font-size: 24px;
@@ -183,9 +175,7 @@ h2 {
   box-shadow: 0 6px 15px #f45b8333;
 }
 
-.primary:active {
-  transform: scale(.98);
-}
+.primary:active { transform: scale(.98); }
 
 .secondary {
   background: #f2edf0;
@@ -199,9 +189,7 @@ h2 {
   padding-right: 14px;
 }
 
-.full {
-  width: 100%;
-}
+.full { width: 100%; }
 
 .button-row {
   display: flex;
@@ -209,9 +197,7 @@ h2 {
   width: 100%;
 }
 
-.button-row > button {
-  flex: 1;
-}
+.button-row > button { flex: 1; }
 
 .bottom-note {
   text-align: center;
@@ -259,9 +245,7 @@ h2 {
   background: #f9dce4;
 }
 
-.food-copy {
-  padding: 11px;
-}
+.food-copy { padding: 11px; }
 
 .food-name {
   font-weight: 800;
@@ -271,9 +255,7 @@ h2 {
   gap: 4px;
 }
 
-.tick {
-  color: var(--pink);
-}
+.tick { color: var(--pink); }
 
 .food-desc {
   font-size: 12px;
@@ -290,9 +272,7 @@ h2 {
   margin-top: 12px;
 }
 
-.field {
-  margin-bottom: 17px;
-}
+.field { margin-bottom: 17px; }
 
 label {
   display: block;
@@ -332,9 +312,7 @@ input:focus {
   border-bottom: 1px solid #f5e7eb;
 }
 
-.summary-row:last-child {
-  border-bottom: 0;
-}
+.summary-row:last-child { border-bottom: 0; }
 
 .summary-label {
   font-size: 11px;
@@ -407,10 +385,12 @@ input:focus {
         Sounds like a plan? 🥹
       </p>
 
+      <!-- ONLY CHANGE: first-screen image source -->
       <img
         class="hero-image"
         alt="A romantic couple"
         src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=85"
+        onerror="this.onerror=null;this.src='https://placehold.co/700x500/ffe4ec/db416c?text=Hey+D'"
       >
 
       <div class="button-row">
@@ -634,7 +614,6 @@ function renderRoute() {
   document.getElementById("progressFill").style.width =
     `${step * 25}%`;
 
-  // Every screen starts at the top after navigation.
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
